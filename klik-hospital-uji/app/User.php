@@ -27,13 +27,4 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
-    public function transaksiruangs()
-    {
-        return $this->hasMany('App/TransaksiRuang');
-    }
-    public function transaksidokters()
-    {
-        return $this->hasMany('App/TransaksiDokter');
-    }
 }
