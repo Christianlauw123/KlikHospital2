@@ -19,7 +19,7 @@
 					<select name="lokasi" class="custom-select" id="lokasiSelectRoom">
 						<option selected>Choose...</option>
 						@foreach($allKotaRS as $item)
-						<option value="{{$item->kota}}">{{$item->kota}}</option>
+						<option value="{{$item->id}}">{{$item->nama}}</option>
 						@endforeach
 					</select>
 				</div>
@@ -28,7 +28,7 @@
 					<select name="rs" class="custom-select" id="tipeSelectRoom">
 						<option selected>Choose...</option>
 			        	@foreach($allRS as $item)
-						<option value="{{$item->nama}}">{{$item->nama}}</option>
+						<option value="{{$item->id}}">{{$item->nama}}</option>
 						@endforeach
 					</select>
 				</div>
@@ -36,8 +36,8 @@
 					<label for="spesialisSelectDoctor">Spesialis</label>
 					<select name="spesialis" class="custom-select" id="kamarSelectRoom">
 						<option selected>Choose...</option>
-			        	@foreach($allSpesialis as $item)
-						<option value="{{$item->nama}}">{{$item->nama}}</option>
+			        	@foreach($allSps as $item)
+						<option value="{{$item->id}}">{{$item->nama}}</option>
 						@endforeach
 					</select>
 				</div>

@@ -10,15 +10,15 @@ class Doctor extends Model
 
     public function spesialist()
     {
-    	return $this->belongsTo('App/Specialist');
+    	return $this->belongsTo('App\Specialist');
     }
 
     public function doctorclinics()
     {
-    	return $this->hasMany('App/DoctorClinic');
+    	return $this->hasMany('App\DoctorClinic');
     }
     public function doctorhospitals()
     {
-    	return $this->hasMany('App/DoctorHospital');
+    	return $this->hasMany('App\DoctorHospital');
     }
 }

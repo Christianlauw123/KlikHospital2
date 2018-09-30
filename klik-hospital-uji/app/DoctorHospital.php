@@ -11,18 +11,18 @@ class DoctorHospital extends Model
 
     public function doctor()
     {
-    	return $this->belongsTo('App/Doctor');
+    	return $this->belongsTo('App\Doctor');
     }
     public function hospital()
     {
-    	return $this->belongsTo('App/Hospial');
+    	return $this->belongsTo('App\Hospial');
     }
     public function hospitalclinictransactions()
     {
-    	return $this->hasMany('App/HospitalClinicTransaction');
+    	return $this->hasMany('App\HospitalClinicTransaction');
     }
     public function roomtransactions()
     {
-        return $this->hasMany('App/RoomTransaction','doctorHospital_id');
+        return $this->hasMany('App\RoomTransaction','doctorHospital_id');
     }
 }

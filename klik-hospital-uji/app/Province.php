@@ -10,6 +10,6 @@ class Province extends Model
 
     public function citys()
     {
-    	return $this->hasMany('App/City');
+    	return $this->hasMany('App\City');
     }
 }

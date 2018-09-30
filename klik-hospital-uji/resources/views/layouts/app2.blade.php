@@ -28,6 +28,21 @@
   <!-- Main Stylesheet File -->
   <link href="{{asset('template_source/css/style.css')}}" rel="stylesheet">
 
+  <!-- JavaScript Libraries -->
+  <script src="{{asset('template_source/lib/jquery/jquery.min.js')}}"></script>
+  <script src="{{asset('template_source/lib/jquery/jquery-migrate.min.js')}}"></script>
+  <script src="{{asset('template_source/lib/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+  <script src="{{asset('template_source/lib/superfish/hoverIntent.js')}}"></script>
+  <script src="{{asset('template_source/lib/superfish/superfish.min.js')}}"></script>
+  <script src="{{asset('template_source/lib/easing/easing.min.js')}}"></script>
+  <script src="{{asset('template_source/lib/modal-video/js/modal-video.js')}}"></script>
+  <script src="{{asset('template_source/lib/owlcarousel/owl.carousel.min.js')}}"></script>
+  <script src="{{asset('template_source/lib/wow/wow.min.js')}}"></script>
+  <!-- Contact Form JavaScript File -->
+  <script src="{{asset('template_source/contactform/contactform.js')}}"></script>
+
+  <!-- Template Main Javascript File -->
+  <script src="{{asset('template_source/js/main.js')}}"></script>
   <!-- =======================================================
     Theme Name: eStartup
     Theme URL: https://bootstrapmade.com/estartup-bootstrap-landing-page-template/
@@ -233,22 +248,6 @@
 </div>
 
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
-
-  <!-- JavaScript Libraries -->
-  <script src="{{asset('template_source/lib/jquery/jquery.min.js')}}"></script>
-  <script src="{{asset('template_source/lib/jquery/jquery-migrate.min.js')}}"></script>
-  <script src="{{asset('template_source/lib/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-  <script src="{{asset('template_source/lib/superfish/hoverIntent.js')}}"></script>
-  <script src="{{asset('template_source/lib/superfish/superfish.min.js')}}"></script>
-  <script src="{{asset('template_source/lib/easing/easing.min.js')}}"></script>
-  <script src="{{asset('template_source/lib/modal-video/js/modal-video.js')}}"></script>
-  <script src="{{asset('template_source/lib/owlcarousel/owl.carousel.min.js')}}"></script>
-  <script src="{{asset('template_source/lib/wow/wow.min.js')}}"></script>
-  <!-- Contact Form JavaScript File -->
-  <script src="{{asset('template_source/contactform/contactform.js')}}"></script>
-
-  <!-- Template Main Javascript File -->
-  <script src="{{asset('template_source/js/main.js')}}"></script>
 
   <script type="text/javascript">
     $("#btnLogin").click(function(){

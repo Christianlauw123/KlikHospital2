@@ -10,6 +10,6 @@ class Room extends Model
 
     public function hospital()
     {
-    	return $this->belongsTo('App/Hospital');
+    	return $this->belongsTo('App\Hospital');
     }
 }

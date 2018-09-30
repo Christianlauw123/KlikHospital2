@@ -18,8 +18,18 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+//Section Klik-Room Detail RS dan Kumpulan Kamar
 Route::resource('/klik-room','KlikRoomController');
-Route::get('/klik-room/detail_rs/{id}','KlikRoomController@detailRumahSakit');
+//End Section Klik-Room Detail RS dan Kumpulan Kamar
+
 Route::resource('/klik-doctor','KlikDoctorController');
 Route::get('/klik-doctor/detail_doctor/{id}','KlikDoctorController@detailDoctor');
+
+//HospitalController : Untuk ambil data" JQUERY Hospital
+Route::get('hospitalData/{lokasiId?}/{tipeRumahSakit?},{tipeKamar?}','HospitalController@getHospital');
+Route::get('hospitalData/{keterangan?}','HospitalController@getHospitalByNama');
+
+//RoomController : Detail Kamar
+Route::get('/rooms/{id}','RoomsController@show');
 

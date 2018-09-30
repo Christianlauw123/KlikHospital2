@@ -11,18 +11,18 @@ class Pharmacy extends Model
 
     public function user()
     {
-    	return $this->belongsTo('App/User');
+    	return $this->belongsTo('App\User');
     }
     public function city()
     {
-    	return $this->belongsTo('App/City');
+    	return $this->belongsTo('App\City');
     }
     public function pharmacytransactions()
     {
-    	return $this->hasMany('App/PharmacyTransaction');
+    	return $this->hasMany('App\PharmacyTransaction');
     }
     public function drugs()
     {
-    	return $this->hasMany('App/Drug');
+    	return $this->hasMany('App\Drug');
     }
 }

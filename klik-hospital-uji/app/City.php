@@ -11,26 +11,26 @@ class City extends Model
 
     public function province()
     {
-    	return $this->belongsTo('App/Province');
+    	return $this->belongsTo('App\Province');
     }
 
     public function clinics()
     {
-    	return $this->hasMany('App/Clinic');
+    	return $this->hasMany('App\Clinic');
     }
 
     public function hospitals()
     {
-    	return $this->hasMany('App/Hospital');
+    	return $this->hasMany('App\Hospital');
     }
 
     public function pharmacys()
     {
-    	return $this->hasMany('App/Pharmacy');
+    	return $this->hasMany('App\Pharmacy');
     }
 
     public function airplanes()
     {
-    	return $this->hasMany('App/Airplane');
+    	return $this->hasMany('App\Airplane');
     }
 }

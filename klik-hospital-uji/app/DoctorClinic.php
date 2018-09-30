@@ -11,11 +11,11 @@ class DoctorClinic extends Model
 
     public function doctor()
     {
-    	return $this->belongsTo('App/Doctor');
+    	return $this->belongsTo('App\Doctor');
     }
 
     public function clinictransactions()
     {
-    	return $this->belongsTo('App/ClinicTransaction');
+    	return $this->belongsTo('App\ClinicTransaction');
     }
 }

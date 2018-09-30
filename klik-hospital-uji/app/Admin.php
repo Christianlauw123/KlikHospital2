@@ -10,14 +10,14 @@ class Admin extends Model
 
     public function user()
     {
-    	return $this->belongsTo('App/User');
+    	return $this->belongsTo('App\User');
     }
     public function blogs()
     {
-    	return $this->hasMany('App/Blog');
+    	return $this->hasMany('App\Blog');
     }
     public function hospitalclinictransactions()
     {
-    	return $this->hasMany('App/HospitalClinicTransaction');
+    	return $this->hasMany('App\HospitalClinicTransaction');
     }
 }

@@ -11,10 +11,10 @@ class PharmacyMessageTransaction extends Model
 
     public function pharmacytransaction()
     {
-    	return $this->belongsTo('App/PharmacyTransaction',"pharmacyTransactions_id");
+    	return $this->belongsTo('App\PharmacyTransaction',"pharmacyTransactions_id");
     }
     public function admin()
     {
-    	return $this->belongsTo('App/Admin');
+    	return $this->belongsTo('App\Admin');
     }
 }

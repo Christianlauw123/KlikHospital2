@@ -10,14 +10,14 @@ class Airplane extends Model
 
     public function user()
     {
-    	return $this->belongsTo('App/User');
+    	return $this->belongsTo('App\User');
     }
     public function city()
     {
-    	return $this->belongsTo('App/City');
+    	return $this->belongsTo('App\City');
     }
     public function airplanetransactions()
     {
-    	return $this->hasMany('App/AirplaneTransaction');
+    	return $this->hasMany('App\AirplaneTransaction');
     }
 }

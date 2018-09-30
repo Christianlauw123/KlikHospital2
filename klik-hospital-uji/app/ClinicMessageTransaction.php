@@ -11,10 +11,10 @@ class ClinicMessageTransaction extends Model
 
     public function admin()
     {
-    	return $this->belongsTo('App/Admin');
+    	return $this->belongsTo('App\Admin');
     }
     public function clinictransaction()
     {
-    	return $this->belongsTo('App/ClinicTransaction','clinicTransaction_id');
+    	return $this->belongsTo('App\ClinicTransaction','clinicTransaction_id');
     }
 }

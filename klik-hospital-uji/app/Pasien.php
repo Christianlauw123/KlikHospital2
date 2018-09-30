@@ -10,22 +10,22 @@ class Pasien extends Model
 
     public function user()
     {
-    	return $this->belongsTo('App/User');
+    	return $this->belongsTo('App\User');
     }
     public function clinictransactions()
     {
-    	return $this->hasMany('App/ClinicTransaction');
+    	return $this->hasMany('App\ClinicTransaction');
     }
     public function hospitalclinictransactions()
     {
-    	return $this->hasMany('App/HospitalClinicTransaction');
+    	return $this->hasMany('App\HospitalClinicTransaction');
     }
     public function pharmacytransactions()
     {
-    	return $this->hasMany('App/PharmacyTransaction');
+    	return $this->hasMany('App\PharmacyTransaction');
     }
     public function roomtransactions()
     {
-    	return $this->hasMany('App/RoomTransaction');
+    	return $this->hasMany('App\RoomTransaction');
     }
 }

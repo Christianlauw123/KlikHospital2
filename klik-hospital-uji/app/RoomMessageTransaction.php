@@ -11,10 +11,10 @@ class RoomMessageTransaction extends Model
 
     public function roomtransaction()
     {
-    	return $this->belongsTo('App/RoomTransaction',"roomTransactions_id ");
+    	return $this->belongsTo('App\RoomTransaction',"roomTransactions_id ");
     }
     public function admin()
     {
-    	return $this->belongsTo('App/Admin');
+    	return $this->belongsTo('App\Admin');
     }
 }

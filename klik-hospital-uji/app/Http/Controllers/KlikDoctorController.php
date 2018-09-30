@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\City;
 use App\Hospital;
-use App\Room;
-
-class KlikRoomController extends Controller
+use App\Specialist;
+use App\Doctor;
+class KlikDoctorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +18,9 @@ class KlikRoomController extends Controller
     {
         $allKotaRS = City::all();
         $allRS = Hospital::all();
-        return view('klik-room.index',compact('allKotaRS','allRS'));
+        $allSps = Specialist::all();
+        $allDokter = Doctor::all();
+        return view('klik-doctor.index',compact('allKotaRS','allRS','allSps','allDokter'));
     }
 
     /**
@@ -50,9 +52,7 @@ class KlikRoomController extends Controller
      */
     public function show($id)
     {
-        $dataHosp = Hospital::find($id);
-        //ListKamar
-        return view('klik-room.detail_rs',compact('dataHosp'));
+        //
     }
 
     /**
@@ -88,5 +88,4 @@ class KlikRoomController extends Controller
     {
         //
     }
-
 }

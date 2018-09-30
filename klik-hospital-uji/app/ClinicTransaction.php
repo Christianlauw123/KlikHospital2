@@ -11,22 +11,22 @@ class ClinicTransaction extends Model
 
     public function doctorclinic()
     {
-    	return $this->belongsTo('App/DoctorClinic');
+    	return $this->belongsTo('App\DoctorClinic');
     }
     public function patient()
     {
-    	return $this->belongsTo('App/Pasien');
+    	return $this->belongsTo('App\Pasien');
     }
     public function user()
     {
-    	return $this->belongsTo('App/User');
+    	return $this->belongsTo('App\User');
     }
     public function payment()
     {
-    	return $this->belongsTo('App/Payments',"payment_id");
+    	return $this->belongsTo('App\Payments',"payment_id");
     }
     public function promotion()
     {
-    	return $this->belongsTo('App/Promotion');
+    	return $this->belongsTo('App\Promotion');
     }
 }

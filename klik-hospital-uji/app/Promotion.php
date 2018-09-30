@@ -10,22 +10,22 @@ class Promotion extends Model
 
     public function airplanetransactions()
     {
-    	return $this->hasMany('App/AirplaneTransaction');
+    	return $this->hasMany('App\AirplaneTransaction');
     }
     public function clinicransactions()
     {
-    	return $this->hasMany('App/ClinicTransaction');
+    	return $this->hasMany('App\ClinicTransaction');
     }
     public function hospitalclinictransactions()
     {
-    	return $this->hasMany('App/HospitalClinicTransaction');
+    	return $this->hasMany('App\HospitalClinicTransaction');
     }
     public function pharmacytransactions()
     {
-    	return $this->hasMany('App/PharmacyTransaction');
+    	return $this->hasMany('App\PharmacyTransaction');
     }
     public function roomtransactions()
     {
-    	return $this->hasMany('App/RoomTransaction');
+    	return $this->hasMany('App\RoomTransaction');
     }
 }
