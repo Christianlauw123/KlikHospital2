@@ -24,7 +24,7 @@ Route::resource('/klik-room','KlikRoomController');
 //End Section Klik-Room Detail RS dan Kumpulan Kamar
 
 Route::resource('/klik-doctor','KlikDoctorController');
-Route::get('/klik-doctor/detail_doctor/{id}','KlikDoctorController@detailDoctor');
+Route::resource('/doctor','DoctorController');
 
 //HospitalController : Untuk ambil data" JQUERY Hospital
 Route::get('hospitalData/{lokasiId?}/{tipeRumahSakit?},{tipeKamar?}','HospitalController@getHospital');

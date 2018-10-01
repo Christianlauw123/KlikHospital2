@@ -64,7 +64,7 @@
   		<div class="container">
   			@foreach($allDokter as $item)
   			<div class="row justify-content-center">
-  			<a href="{{url('/klik-doctor/detail_doctor/').'/'.$item->id}}" style="text-decoration: none;">
+  			<a href="{{url('/doctor').'/'.$item->id}}" style="text-decoration: none;">
 		 		<div class="card">
 		 			<div class="row no-gutters">
 			            <div class="col-auto">
@@ -73,7 +73,7 @@
 			            <div class="col">
 			                <div class="card-block px-2">
 			                    <h4 class="card-title">{{$item->nama}}</h4>
-			                    <h4 class="card-title"><b>Spesialis: &nbsp;</b>{{$item->spesialis->nama}}</h4>
+			                    <h4 class="card-title"><b>Spesialis: &nbsp;</b>{{$item->spesialist->nama}}</h4>
 			                    <div class="row">
 				                    <div class="col"> <!-- Logo RS -->
 				                    	<img src="//placehold.it/200" class="img-fluid" alt="">
@@ -85,15 +85,11 @@
 			                    <div class="row justify-content-center">
 				                    <div class="col">
 				                    	<!-- Tampilkan praktek RS manasaja -->
-				                    	@foreach($item->dokterrumahsakits as $item2)
-				                    		<p><span>{{$item2->rumahsakit->nama}}</span></p>
-				                    	@endforeach
+				                    	
 				                    </div>
 				                    <div class="col">
 				                    	<!-- Tampilkan praktek Klinik manasaja -->
-				                    	@foreach($item->dokterkliniks as $item2)
-				                    		<p><span>{{$item2->klinik->nama}}</span></p>
-				                    	@endforeach
+				                    	
 				                    </div>
 			                    </div>
 			                </div>
@@ -105,7 +101,7 @@
 	 		@endforeach
 
   			<!-- Todo Loop -->
-  			Contoh Dummy
+  			<!-- Contoh Dummy
 	 		<div class="row justify-content-center"> 
 	 		<a href="{{url('/klik-doctor/detail_doctor/1')}}" style="text-decoration: none;">
 		 		<div class="card">
@@ -140,7 +136,7 @@
 		        	</div>
 		 		</div>
 	 		</a>
-	 		</div>
+	 		</div> -->
 	 	</div>
 	 
 	 <!--==========================
@@ -148,7 +144,6 @@
 	  ============================-->  
 		</div>
 	
-
 </section>
 <!--==========================
     End Menu Utama
