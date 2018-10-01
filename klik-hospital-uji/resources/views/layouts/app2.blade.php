@@ -250,9 +250,7 @@
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 
   <script type="text/javascript">
-    $("#btnLogin").click(function(){
-      alert('Tes');
-    })
+    
   </script>
 </body>
 </html>
