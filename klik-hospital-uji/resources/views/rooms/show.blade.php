@@ -32,6 +32,7 @@
 		  ============================-->
 		 <div class="w-100"></div>
 		 <!-- pesan -->
+     
 		 <button data-toggle="modal" data-target="#modalPesanRoom" class="btn btn-primary">Pesan</button>
 	</div>
 </section>
@@ -58,6 +59,10 @@
       				<input type="text" class="form-control" name="noTelepon" placeholder="Nomor Telepon">
       			</div>
       		</div>
+          <div class="form-group">
+            <label>Tanggal Lahir</label>
+            <input class="form-control" type="date" name="bdate">
+          </div>
       		<div class="form-group">
       			<label>Alamat</label>
       			<textarea class="form-control" name="alamatPasien" placeholder="Alamat"></textarea>
@@ -69,11 +74,12 @@
       		<div class="form-row">
       			<div class="form-group col-md-6">
       				<label>Lama Inap</label>
-      				<input type="number" min="1" value="1" class="form-control" id="lamaInap">
+      				<input type="number" min="1" value="1" class="form-control" name="lamaInap" id="lamaInap">
       			</div>
       			<div class="form-group col-md-4">
       				<label for="inputState">Total Biaya:</label>
-      				<input type="number" min="1" disabled value="{{$roomData->harga}}" class="form-control" id="biayaTotal">
+      				<input type="number" min="1" readonly name="biayaTotal" value="{{$roomData->harga}}" class="form-control" id="biayaTotal">
+              <input type="hidden" name="idRoom" value="{{$roomData->id}}">
       			</div>
       		</div>
       	</div>
@@ -84,10 +90,85 @@
   </div>
 </div>
 </div>
+
+<div id="konfirmasiPesanRoom" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content text-center">
+      <div class="modal-header">
+        <h5 class="modal-title">Konfirmasi Data Pesanan</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Apakah anda yakin dengan data yang anda isikan adalah benar?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+        <button type="button" id="btnSetujuDataBenar" class="btn btn-primary">Setuju</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="afterKonfirmasiRoom" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content text-center">
+      <div class="modal-header">
+        <h5 class="modal-title">Pemesanan Berhasil</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Pemesanan berhasil dilakukan.</p>
+        <p>Tim dari klik-hospital memproses pesanan anda</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="btnTutupPesanRoom" class="btn btn-primary" data-dismiss="modal">Tutup</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script type="text/javascript">
-	$("#lamaInap").change(function()
-	{
-		$("#biayaTotal").val({{$roomData->harga}}*$(this).val());
-	});
+  $(document).ready(function(){
+    $("#lamaInap").change(function()
+    {
+      $("#biayaTotal").val({{$roomData->harga}}*$(this).val());
+    });
+
+    $("#formPesanRoom").submit(function(e)
+    {
+      e.preventDefault();
+      $("#konfirmasiPesanRoom").modal('show');
+    })
+    $("#btnSetujuDataBenar").click(function(e)
+    {
+      e.preventDefault();
+      var data = $("#formPesanRoom").serializeArray();
+      //console.log(data);
+      var dataSubmit = {'namaPas': data[0].value, 'noTelepon': data[1].value, 'alamat':data[3].value, 'alasan':data[4].value, 'lamaInap':data[5].value,'biayaTotal':data[6].value,'bdate':data[2].value,'idRoom':data[7].value};
+      console.log(dataSubmit);
+      $.ajax({
+          url : "{{url('roomTransaction')}}",
+          type : "POST",
+          data : dataSubmit,
+          success: function(result){
+              console.log(result);
+          }
+      });
+
+
+      $('#btnSetujuDataBenar').modal('hide');
+      $('#modalPesanRoom').modal('hide');
+      $("#afterKonfirmasiRoom").modal('show');
+    })
+    $("#btnTutupPesanRoom").click(function(e)
+    {
+      e.preventDefault();
+      window.location.href = "{{url('/')}}";
+    })
+  });
 </script>
 @endsection

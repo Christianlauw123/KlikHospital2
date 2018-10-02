@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\RoomTransaction;
+use Auth;
 class RoomTransactionController extends Controller
 {
     /**
@@ -34,7 +35,31 @@ class RoomTransactionController extends Controller
      */
     public function store(Request $request)
     {
-        
+        //Insert Pasien Baru
+        $pasien = new Pasien([
+            'nama'=>$request->get('namaPas');
+            'no_telepon'=>$request->get('noTelepon');
+            'tgl_lahir'=>$request->get('bdate');
+            'alamat'=>$request->get('alamat');
+            'alasan_kunjungan'=>$request->get('alasan');,
+            'isActive'=>1,
+        ]);
+        $pasien->save();
+
+        //Insert Transaksi
+        $newRoom = new RoomTransaction([
+            'lamaInap'=>$request->get('lamaInap'),
+            'totalBiaya'=>$request->get('biayaTotal'),
+            'statusTransaksi'=>0,
+            'isActive'=>1,
+            'room_id'=>$request->get('idRoom'),
+            'pasien_id'=>,$pasien->id;
+            'user_id'=>Auth::user()->id,
+        ]);
+        $newRoom->save();
+        return response()->json([
+            'success' =>1,
+        ]);
     }
 
     /**
