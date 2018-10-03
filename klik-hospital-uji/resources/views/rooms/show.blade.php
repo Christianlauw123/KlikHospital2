@@ -105,7 +105,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-        <button type="button" id="btnSetujuDataBenar" class="btn btn-primary">Setuju</button>
+        <button type="button" id="btnSetujuDataBenar" data-dismiss="modal" class="btn btn-primary">Setuju</button>
       </div>
     </div>
   </div>
@@ -133,6 +133,11 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
+    $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
     $("#lamaInap").change(function()
     {
       $("#biayaTotal").val({{$roomData->harga}}*$(this).val());
@@ -156,11 +161,14 @@
           data : dataSubmit,
           success: function(result){
               console.log(result);
+          },
+          error: function(data){
+            console.log(data);
           }
       });
 
 
-      $('#btnSetujuDataBenar').modal('hide');
+      // $('#btnSetujuDataBenar').modal('hide');
       $('#modalPesanRoom').modal('hide');
       $("#afterKonfirmasiRoom").modal('show');
     })

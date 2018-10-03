@@ -33,5 +33,5 @@ Route::get('hospitalData/{keterangan?}','HospitalController@getHospitalByNama');
 //RoomController : Detail Kamar
 Route::get('/rooms/{id}','RoomsController@show');
 
-Route::resource('/roomTransaction','RoomTransactionController@show');
+Route::resource('/roomTransaction','RoomTransactionController');
 
