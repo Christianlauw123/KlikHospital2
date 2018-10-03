@@ -37,11 +37,11 @@ class RoomTransactionController extends Controller
     {
         //Insert Pasien Baru
         $pasien = new Pasien([
-            'nama'=>$request->get('namaPas');
-            'no_telepon'=>$request->get('noTelepon');
-            'tgl_lahir'=>$request->get('bdate');
-            'alamat'=>$request->get('alamat');
-            'alasan_kunjungan'=>$request->get('alasan');,
+            'nama'=>$request->get('namaPas'),
+            'no_telepon'=>$request->get('noTelepon'),
+            'tgl_lahir'=>$request->get('bdate'),
+            'alamat'=>$request->get('alamat'),
+            'alasan_kunjungan'=>$request->get('alasan'),
             'isActive'=>1,
         ]);
         $pasien->save();
@@ -53,7 +53,7 @@ class RoomTransactionController extends Controller
             'statusTransaksi'=>0,
             'isActive'=>1,
             'room_id'=>$request->get('idRoom'),
-            'pasien_id'=>,$pasien->id;
+            'pasien_id'=>$pasien->id,
             'user_id'=>Auth::user()->id,
         ]);
         $newRoom->save();

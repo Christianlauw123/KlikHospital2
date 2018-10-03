@@ -15,7 +15,7 @@ class HospitalClinicTransaction extends Model
     }
     public function doctorhospital()
     {
-    	return $this->belongsTo('App\DoctorHospital')
+    	return $this->belongsTo('App\DoctorHospital');
     }
     public function pasien()
     {
