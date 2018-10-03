@@ -15,7 +15,11 @@ class RoomTransactionController extends Controller
      */
     public function index()
     {
-        //
+        $getTrans = RoomTransaction::where('user_id',Auth::user()->id)->get();
+        return response()->json([
+            'myTrax'=>$getTrans,
+        ]);
+
     }
 
     /**

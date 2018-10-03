@@ -18,6 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/myTransaction', 'HomeController@myTransaction');
 
 //Section Klik-Room Detail RS dan Kumpulan Kamar
 Route::resource('/klik-room','KlikRoomController');
