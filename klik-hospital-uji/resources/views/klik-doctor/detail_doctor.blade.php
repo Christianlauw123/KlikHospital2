@@ -29,6 +29,11 @@
 			</div>
 		</div>
 	</div>
-	<h1>TODO JADWAL PRAKTEK</h1>
+	<div class="container">
+		<div class="row">
+			<h1>TODO JADWAL PRAKTEK</h1>
+			
+		</div>
+	</div>
 </section>
 @endsection

@@ -22,6 +22,7 @@ Route::get('/myTransaction', 'HomeController@myTransaction');
 
 //Section Klik-Room Detail RS dan Kumpulan Kamar
 Route::resource('/klik-room','KlikRoomController');
+
 //End Section Klik-Room Detail RS dan Kumpulan Kamar
 
 Route::resource('/klik-doctor','KlikDoctorController');
@@ -33,6 +34,11 @@ Route::get('hospitalData/{keterangan?}','HospitalController@getHospitalByNama');
 
 //RoomController : Detail Kamar
 Route::get('/rooms/{id}','RoomsController@show');
+Route::get('/detailRuang/{id}','RoomsController@getDataRuang');
 
 Route::resource('/roomTransaction','RoomTransactionController');
+Route::get('/roomTransactionAdmin','RoomTransactionController@getAllTransRoom');
+
+//DataPasien
+Route::get('/detailPasien/{id}','PasienController@getDetailPasien');
 

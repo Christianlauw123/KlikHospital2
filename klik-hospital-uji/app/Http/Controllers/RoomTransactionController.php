@@ -111,4 +111,27 @@ class RoomTransactionController extends Controller
     {
         //
     }
+
+    //Get Trans For Hospital Admin
+    public function getAllTransRoom()
+    {
+        if(Auth::user()!=null)
+        {
+            if(Auth::user()->hospital)
+            {
+                //Get Room Trans based on worker
+                $allRoomTrans = RoomTransaction::join('rooms','room_transactions.room_id','=','rooms.id')
+                                                ->join('hospitals','rooms.hospital_id','=','hospitals.id')
+                                                ->join('pasiens','room_transactions.pasien_id','=','pasiens.id')
+                                                ->where('hospitals.id','=',Auth::user()->hospital->id)
+                                                ->get();
+                return response()->json([
+                    'roomTrans' => $allRoomTrans,
+                ]);
+            }
+            return redirect('/');
+        }
+        return redirect('/');
+
+    }
 }

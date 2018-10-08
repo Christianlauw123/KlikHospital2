@@ -11,4 +11,11 @@ class RoomsController extends Controller
     	$roomData = Room::find($id);
     	return view('rooms.show',compact('roomData'));
     }
+    public function getDataRuang($id)
+    {
+        $roomData = Room::find($id);
+    	return response()->json([
+            'dataRuang'=>$roomData,
+        ]);
+    }
 }
