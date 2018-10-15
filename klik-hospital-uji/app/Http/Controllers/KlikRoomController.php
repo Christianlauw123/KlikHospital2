@@ -18,7 +18,7 @@ class KlikRoomController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->hospital)
+        if(isset(Auth::user()->hospital))
         {
             //Get Room Trans based on worker
             $allRoomTrans = RoomTransaction::join('rooms','room_transactions.room_id','=','rooms.id')
@@ -38,6 +38,7 @@ class KlikRoomController extends Controller
             $allRS = Hospital::all();
             return view('klik-room.index',compact('allKotaRS','allRS'));
         }
+        
     }
 
     /**

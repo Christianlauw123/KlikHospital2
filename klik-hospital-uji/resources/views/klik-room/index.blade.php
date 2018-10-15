@@ -11,7 +11,7 @@
 		 <!--==========================
 		    Search Menu
 		  ============================-->
-		@if(Auth::user()->hospital)
+		@if(isset(Auth::user()->hospital))
 			<div class="container">
 				<p>
 					<button class="btn btn-primary" type="button" data-toggle="collapse" id="btnHistoryRoom">Transaksi Room</button>

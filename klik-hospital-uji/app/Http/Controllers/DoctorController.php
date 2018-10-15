@@ -82,4 +82,48 @@ class DoctorController extends Controller
     {
         //
     }
+    public function doctorByParameter($lokasiId=null, $spesialisId=null, $rumahSakitId=null)
+    {
+        $allDoct = Doctor::all();
+        if($lokasiId!=null)
+            $allDoct = Doctor::join('doctor_hospitals','doctors.id','=','doctor_hospitals.doctor_id')
+                            ->join('doctor_clinics','doctors.id','=','doctor_clinics.doctor_id')
+                            ->join('hospitals','hospitals.id','=','doctor_hospitals.hospital_id')
+                            ->join('clinics','clinics.id','=','doctor_clinics.clinic_id')
+                            ->where('hospitals.city_id',$lokasiId)
+                            ->orWhere('clinics.city_id',$lokasiId)
+                            ->distinct()->select('doctors.*')->get();
+        if($spesialisId!=null)
+        {
+            if($lokasiId!=null)
+            {
+                $allDoct = Doctor::join('doctor_hospitals','doctors.id','=','doctor_hospitals.doctor_id')
+                            ->join('doctor_clinics','doctors.id','=','doctor_clinics.doctor_id')
+                            ->join('hospitals','hospitals.id','=','doctor_hospitals.hospital_id')
+                            ->join('clinics','clinics.id','=','doctor_clinics.clinic_id')
+                            ->where('doctors.spesialist_id',$spesialisId)
+                            ->where(function ($query) use ($lokasiId) {
+                                $query->where('clinics.city_id','=',$lokasiId)
+                                      ->orWhere('hospitals.city_id','=',$lokasiId);
+                            })->distinct()->select('doctors.*')->get();
+            }
+            else
+            {
+                $allDoct = Doctor::join('doctor_hospitals','doctors.id','=','doctor_hospitals.doctor_id')
+                            ->join('doctor_clinics','doctors.id','=','doctor_clinics.doctor_id')
+                            ->join('hospitals','hospitals.id','=','doctor_hospitals.hospital_id')
+                            ->join('clinics','clinics.id','=','doctor_clinics.clinic_id')
+                            ->where('doctors.spesialist_id',$spesialisId)
+                            ->distinct()->select('doctors.*')->get();
+            }
+        }
+        if($rumahSakitId!=null)
+        {
+            $allDoct = Doctor::join('doctor_hospitals','doctors.id','=','doctor_hospitals.doctor_id')
+                            ->join('doctor_clinics','doctors.id','=','doctor_clinics.doctor_id')
+                            ->join('hospitals','hospitals.id','=','doctor_hospitals.hospital_id')
+                            ->where('hospitals.id','=',$rumahSakitId)->distinct()->select('doctors.*')->get();
+        }
+        return response()->json($allDoct->toArray());
+    }
 }

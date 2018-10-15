@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
         //$this->call(RoomsTableSeeder::class);
         //$this->call(SpecialistTableSeeder::class);
         //$this->call(DoctorTableSeeder::class);
-        $this->call(DoctorHospitalSeeder::class);
+        //$this->call(DoctorHospitalSeeder::class);
+        $this->call(ClinicTableSeeder::class);
+        $this->call(DoctorClinicTableSeeder::class);
     }
 }
