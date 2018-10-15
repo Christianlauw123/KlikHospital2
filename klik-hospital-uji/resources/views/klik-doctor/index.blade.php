@@ -16,26 +16,26 @@
 			<form class="form-inline">
 				<div class="col-auto my-1">
 					<label for="lokasiSelectDoctor">Lokasi</label>
-					<select name="lokasi" class="custom-select" id="lokasiSelectRoom">
-						<option selected>Choose...</option>
+					<select name="lokasi" class="custom-select" id="lokasiSelectDoctor">
+						<option selected value=''>Choose...</option>
 						@foreach($allKotaRS as $item)
-						<option value="{{$item->id}}">{{$item->nama}}</option>
+							<option value="{{$item->id}}">{{$item->nama}}</option>
 						@endforeach
 					</select>
 				</div>
 				<div class="col-auto my-1">
 					<label for="rsSelectDoctor">Rumah Sakit</label>
-					<select name="rs" class="custom-select" id="tipeSelectRoom">
-						<option selected>Choose...</option>
+					<select name="rs" class="custom-select" id="rsSelectDoctor">
+						<option selected value=''>Choose...</option>
 			        	@foreach($allRS as $item)
-						<option value="{{$item->id}}">{{$item->nama}}</option>
+							<option value="{{$item->id}}">{{$item->nama}}</option>
 						@endforeach
 					</select>
 				</div>
 				<div class="col-auto my-1">
 					<label for="spesialisSelectDoctor">Spesialis</label>
-					<select name="spesialis" class="custom-select" id="kamarSelectRoom">
-						<option selected>Choose...</option>
+					<select name="spesialis" class="custom-select" id="spesialisSelectDoctor">
+						<option sselected value=''>Choose...</option>
 			        	@foreach($allSps as $item)
 						<option value="{{$item->id}}">{{$item->nama}}</option>
 						@endforeach
@@ -62,6 +62,7 @@
     		List Dokter
   		  ============================-->  
   		<div class="container">
+		<div id="listDokter">
   			@foreach($allDokter as $item)
   			<div class="row justify-content-center">
   			<a href="{{url('/doctor').'/'.$item->id}}" style="text-decoration: none;">
@@ -98,45 +99,8 @@
 		 		</div>
 	 		</a>
 	 		</div>
-	 		@endforeach
-
-  			<!-- Todo Loop -->
-  			<!-- Contoh Dummy
-	 		<div class="row justify-content-center"> 
-	 		<a href="{{url('/klik-doctor/detail_doctor/1')}}" style="text-decoration: none;">
-		 		<div class="card">
-		 			<div class="row no-gutters">
-			            <div class="col-auto">
-			                <img src="//placehold.it/200" class="img-fluid" alt="">
-			            </div>
-			            <div class="col">
-			                <div class="card-block px-2">
-			                    <h4 class="card-title">Rumah Sakit Husada Utama</h4>
-			                    <h4 class="card-title">Tipe B</h4>
-			                    <div class="row">
-				                    <div class="col">
-				                    	<img src="//placehold.it/200" class="img-fluid" alt="">
-				                    </div>
-				                    <div class="col">
-				                    	<img src="//placehold.it/200" class="img-fluid" alt="">
-				                    </div>
-			                    </div>
-			                    <div class="row justify-content-center">
-				                    <div class="col">
-				                    	<p><span>RS. Premier Surabaya</span></p>
-				                    	<p><span>RS. Premier Surabaya</span></p>
-				                    </div>
-				                    <div class="col">
-				                    	<p><span>RS. Premier Surabaya</span></p>
-				                    	<p><span>RS. Premier Surabaya</span></p>
-				                    </div>
-			                    </div>
-			                </div>
-			            </div>
-		        	</div>
-		 		</div>
-	 		</a>
-	 		</div> -->
+			@endforeach
+		</div>
 	 	</div>
 	 
 	 <!--==========================
@@ -148,10 +112,174 @@
 <!--==========================
     End Menu Utama
   ============================-->
+<script>
+	$(document).ready(function()
+	{
+		$("#spesialisSelectDoctor").change(function()
+		{
+			var spesialisDoctor = $("#spesialisSelectDoctor").val();
+			var lokasiDoctor = $("#lokasiSelectDoctor").val();
+			$("#listDokter").html("");
+			console.log('{{url('doctorDetail')}}/'+lokasiDoctor+'/'+spesialisDoctor);
+			$.get('{{url('doctorDetail')}}/'+lokasiDoctor+'/'+spesialisDoctor,function(data,status){
+				
+				for(var i in data)
+				{
+					var append = "<div class=\"row justify-content-center\">";
+					append += "<a href=\"{{url('/doctor')}}/"+data[i].id+"\" style=\"text-decoration: none;\">";
+					append += "<div class=\"card\">";
+					append += "<div class=\"row no-gutters\">";
+					
+					append += "<div class=\"col-auto\">";
+						append += "<img src=\"//placehold.it/200\" class=\"img-fluid\" alt=\"\">";
+					append += "</div>";
 
-<style type="text/css">
-	p{
-		margin:0;
-	}
-</style>
+					append += "<div class=\"col\">";
+						append += "<div class=\"card-block px-2\">";
+							append += "<h4 class=\"card-title\">"+data[i].nama+"</h4>";
+							append += "<h4 class=\"card-title\"><b>Spesialis: &nbsp;</b>TODO Get SPS</h4>";
+							
+							append += "<div class=\"row\">";
+								append += "<div class=\"col\">"; //<!-- Logo RS -->
+									append += "<img src=\"//placehold.it/200\" class=\"img-fluid\" alt=\"\">";
+								append += "</div>";
+								append += "<div class=\"col\">"; //<!-- Logo Praktek -->
+									append += "<img src=\"//placehold.it/200\" class=\"img-fluid\" alt=\"\">";
+								append += "</div>";
+							append += "</div>";
+							
+							append += "<div class=\"row justify-content-center\">";
+								append += "<div class=\"col\">";
+											//<!-- Tampilkan praktek RS manasaja -->
+								append += "</div>";
+								append += "<div class=\"col\">";
+											//<!-- Tampilkan praktek Klinik manasaja -->
+								append += "</div>";
+							append += "</div>";
+						append += "</div>";
+					append += "</div>";
+					
+					append += "</div>";
+					append += "</div>";
+					append += "</a>";
+					append += "</div>";
+					$("#listDokter").append(append);
+				}
+			});
+
+		});
+
+		$("#lokasiSelectDoctor").change(function()
+		{
+			var spesialisDoctor = $("#spesialisSelectDoctor").val();
+			var lokasiDoctor = $("#lokasiSelectDoctor").val();
+			$("#listDokter").html("");
+			$.get('{{url('doctorDetail')}}/'+lokasiDoctor+'/'+spesialisDoctor,function(data,status){
+				
+				for(var i in data)
+				{
+					var append = "<div class=\"row justify-content-center\">";
+					append += "<a href=\"{{url('/doctor')}}/"+data[i].id+"\" style=\"text-decoration: none;\">";
+					append += "<div class=\"card\">";
+					append += "<div class=\"row no-gutters\">";
+					
+					append += "<div class=\"col-auto\">";
+						append += "<img src=\"//placehold.it/200\" class=\"img-fluid\" alt=\"\">";
+					append += "</div>";
+
+					append += "<div class=\"col\">";
+						append += "<div class=\"card-block px-2\">";
+							append += "<h4 class=\"card-title\">"+data[i].nama+"</h4>";
+							append += "<h4 class=\"card-title\"><b>Spesialis: &nbsp;</b>TODO Get SPS</h4>";
+							
+							append += "<div class=\"row\">";
+								append += "<div class=\"col\">"; //<!-- Logo RS -->
+									append += "<img src=\"//placehold.it/200\" class=\"img-fluid\" alt=\"\">";
+								append += "</div>";
+								append += "<div class=\"col\">"; //<!-- Logo Praktek -->
+									append += "<img src=\"//placehold.it/200\" class=\"img-fluid\" alt=\"\">";
+								append += "</div>";
+							append += "</div>";
+							
+							append += "<div class=\"row justify-content-center\">";
+								append += "<div class=\"col\">";
+											//<!-- Tampilkan praktek RS manasaja -->
+								append += "</div>";
+								append += "<div class=\"col\">";
+											//<!-- Tampilkan praktek Klinik manasaja -->
+								append += "</div>";
+							append += "</div>";
+						append += "</div>";
+					append += "</div>";
+					
+					append += "</div>";
+					append += "</div>";
+					append += "</a>";
+					append += "</div>";
+					$("#listDokter").append(append);
+				}
+			});
+		});
+
+		//Kalau ini dipilih hilangkan yg klinik tampilkan yg di RS saja
+		$("#rsSelectDoctor").change(function()
+		{
+			var spesialisDoctor = $("#spesialisSelectDoctor").val();
+			var lokasiDoctor = $("#lokasiSelectDoctor").val();
+			var idRs = $("#rsSelectDoctor").val();
+			alert(spesialisDoctor);
+			alert(lokasiDoctor);
+			alert(idRs);
+			$("#listDokter").html("");
+			$.get('{{url('doctorDetail')}}/'+lokasiDoctor+'/'+spesialisDoctor,function(data,status){
+				
+				for(var i in data)
+				{
+					var append = "<div class=\"row justify-content-center\">";
+					append += "<a href=\"{{url('/doctor')}}/"+data[i].id+"\" style=\"text-decoration: none;\">";
+					append += "<div class=\"card\">";
+					append += "<div class=\"row no-gutters\">";
+					
+					append += "<div class=\"col-auto\">";
+						append += "<img src=\"//placehold.it/200\" class=\"img-fluid\" alt=\"\">";
+					append += "</div>";
+
+					append += "<div class=\"col\">";
+						append += "<div class=\"card-block px-2\">";
+							append += "<h4 class=\"card-title\">"+data[i].nama+"</h4>";
+							append += "<h4 class=\"card-title\"><b>Spesialis: &nbsp;</b>TODO Get SPS</h4>";
+							
+							append += "<div class=\"row\">";
+								append += "<div class=\"col\">"; //<!-- Logo RS -->
+									append += "<img src=\"//placehold.it/200\" class=\"img-fluid\" alt=\"\">";
+								append += "</div>";
+								append += "<div class=\"col\">"; //<!-- Logo Praktek -->
+									append += "<img src=\"//placehold.it/200\" class=\"img-fluid\" alt=\"\">";
+								append += "</div>";
+							append += "</div>";
+							
+							append += "<div class=\"row justify-content-center\">";
+								append += "<div class=\"col\">";
+											//<!-- Tampilkan praktek RS manasaja -->
+								append += "</div>";
+								append += "<div class=\"col\">";
+											//<!-- Tampilkan praktek Klinik manasaja -->
+								append += "</div>";
+							append += "</div>";
+						append += "</div>";
+					append += "</div>";
+					
+					append += "</div>";
+					append += "</div>";
+					append += "</a>";
+					append += "</div>";
+					$("#listDokter").append(append);
+				}
+			});
+		});
+	
+	});
+</script>
 @endsection
+
+

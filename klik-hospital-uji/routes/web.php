@@ -25,11 +25,16 @@ Route::resource('/klik-room','KlikRoomController');
 
 //End Section Klik-Room Detail RS dan Kumpulan Kamar
 
+//Section Klik-Doctor
 Route::resource('/klik-doctor','KlikDoctorController');
 Route::resource('/doctor','DoctorController');
 
+//Untuk Search doctor berdasar lokasi dan atau spesialis dan atau rumah sakit
+Route::get('doctorDetail/{lokasiId?}/{spesialisId?}/{rumahSakitId?}','DoctorController@doctorByParameter');
+//EndSection Klik-Doctor
+
 //HospitalController : Untuk ambil data" JQUERY Hospital
-Route::get('hospitalData/{lokasiId?}/{tipeRumahSakit?},{tipeKamar?}','HospitalController@getHospital');
+Route::get('hospitalData/{lokasiId?}/{tipeRumahSakit?}/{tipeKamar?}','HospitalController@getHospital');
 Route::get('hospitalData/{keterangan?}','HospitalController@getHospitalByNama');
 
 //RoomController : Detail Kamar
