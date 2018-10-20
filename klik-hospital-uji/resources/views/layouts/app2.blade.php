@@ -17,7 +17,7 @@
   <!-- Bootstrap css -->
   <!-- <link rel="stylesheet" href="css/bootstrap.css"> -->
   <link href="{{asset('template_source/lib/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
-
+{{-- 
   <!-- Libraries CSS Files -->
   <link href="{{asset('template_source/lib/owlcarousel/assets/owl.carousel.min.css')}}" rel="stylesheet">
   <link href="{{asset('template_source/lib/owlcarousel/assets/owl.theme.default.min.css')}}" rel="stylesheet">
@@ -26,7 +26,7 @@
   <link href="{{asset('template_source/lib/modal-video/css/modal-video.min.css')}}" rel="stylesheet">
 
   <!-- Main Stylesheet File -->
-  <link href="{{asset('template_source/css/style.css')}}" rel="stylesheet">
+  <link href="{{asset('template_source/css/style.css')}}" rel="stylesheet"> --}}
 
   <!-- JavaScript Libraries -->
   <script src="{{asset('template_source/lib/jquery/jquery.min.js')}}"></script>

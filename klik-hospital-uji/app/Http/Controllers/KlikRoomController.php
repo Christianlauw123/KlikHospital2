@@ -32,12 +32,9 @@ class KlikRoomController extends Controller
             $allDoctInRS = DoctorHospital::where('hospital_id','=',Auth::user()->hospital->id)->get();
             return view('klik-room.index',compact('allDoctInRS'));
         }
-        else
-        {
-            $allKotaRS = City::all();
-            $allRS = Hospital::all();
-            return view('klik-room.index',compact('allKotaRS','allRS'));
-        }
+        $allKotaRS = City::all();
+        $allRS = Hospital::all();
+        return view('klik-room.index',compact('allKotaRS','allRS'));
         
     }
 

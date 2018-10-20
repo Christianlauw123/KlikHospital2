@@ -181,7 +181,7 @@
 		getRoomTransAdmin();
 		$("#btnHistoryRoom").click(function(){
             $("#RoomTrans").html("");
-			//getRoomTransAdmin();
+			getRoomTransAdmin();
         });
 
         $("#btnHistoryDoctor").click(function(){

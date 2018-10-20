@@ -28,4 +28,8 @@ class Hospital extends Model
     {
         return $this->hasMany('App\AirplaneTransaction','hospital2_id');
     }
+    public function doctorhospitals()
+    {
+        return $this->hasMany('App\DoctorHospital');
+    }
 }

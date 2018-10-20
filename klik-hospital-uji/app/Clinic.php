@@ -16,5 +16,9 @@ class Clinic extends Model
     {
     	return $this->belongsTo('App\City');
     }
+    public function doctorclinics()
+    {
+    	return $this->hasMany('App\DoctorClinic');
+    }
     
 }

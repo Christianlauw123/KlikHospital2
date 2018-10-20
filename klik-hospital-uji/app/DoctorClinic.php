@@ -13,6 +13,10 @@ class DoctorClinic extends Model
     {
     	return $this->belongsTo('App\Doctor');
     }
+    public function clinic()
+    {
+    	return $this->belongsTo('App\Clinic');
+    }
 
     public function clinictransactions()
     {
