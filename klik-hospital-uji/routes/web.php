@@ -47,3 +47,6 @@ Route::get('/roomTransactionAdmin','RoomTransactionController@getAllTransRoom');
 //DataPasien
 Route::get('/detailPasien/{id}','PasienController@getDetailPasien');
 
+//Transaksi Klinik Hospital
+Route::resource('/hospitalclinicTransaction','HospitalClinicTransactionController');
+

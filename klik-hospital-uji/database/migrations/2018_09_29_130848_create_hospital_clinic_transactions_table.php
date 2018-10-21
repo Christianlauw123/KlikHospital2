@@ -19,9 +19,9 @@ class CreateHospitalClinicTransactionsTable extends Migration
             $table->text('hari_praktek');
             $table->text('jam_praktek');
 
-            $table->integer('noAntrian');
+            $table->integer('noAntrian')->nullable();
 
-            $table->integer('totalBiaya');
+            $table->integer('totalBiaya')->nullable();
             $table->integer('statusTransaksi');
             $table->boolean('isActive');
             $table->timestamps();

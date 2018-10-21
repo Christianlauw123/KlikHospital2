@@ -3,13 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\City;
-use App\Hospital;
-use App\Room;
-use App\RoomTransaction;
-use App\DoctorHospital;
-use Auth;
-class KlikRoomController extends Controller
+use App\Pasien;
+
+class HospitalClinicTransactionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,24 +14,7 @@ class KlikRoomController extends Controller
      */
     public function index()
     {
-        if(isset(Auth::user()->hospital))
-        {
-            //Get Room Trans based on worker
-            $allRoomTrans = RoomTransaction::join('rooms','room_transactions.room_id','=','rooms.id')
-                                            ->join('hospitals','rooms.hospital_id','=','hospitals.id')
-                                            ->where('hospitals.id','=',Auth::user()->hospital->id)
-                                            ->get();
-
-            //Get Klinik di Rumah Sakit Trans
-            
-            //Get list dokter dirumah sakit
-            $allDoctInRS = DoctorHospital::where('hospital_id','=',Auth::user()->hospital->id)->get();
-            return view('klik-room.index',compact('allDoctInRS'));
-        }
-        $allKotaRS = City::all();
-        $allRS = Hospital::all();
-        return view('klik-room.index',compact('allKotaRS','allRS'));
-        
+        //
     }
 
     /**
@@ -56,7 +35,19 @@ class KlikRoomController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $newPas = new Pasien([
+        //     'nama'=>$request->get('namaPas'),
+        //     'no_telepon'=>$request->get('noTelepon'),
+        //     'tgl_lahir'=>$request->get('bdate'),
+        //     'alamat'=>$request->get('alamat'),
+        //     'alasan_kunjungan'=>$request->get('alasan'),
+        // ]);
+        // $newPas->save();
+
+        // $
+        return response()->json([
+            'res' => $request->get('dataRoom')[0],
+        ]);
     }
 
     /**
@@ -67,9 +58,7 @@ class KlikRoomController extends Controller
      */
     public function show($id)
     {
-        $dataHosp = Hospital::find($id);
-        //ListKamar
-        return view('klik-room.detail_rs',compact('dataHosp'));
+        //
     }
 
     /**

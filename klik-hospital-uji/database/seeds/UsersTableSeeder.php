@@ -54,6 +54,21 @@ class UsersTableSeeder extends Seeder
         	'wallet' => 54000,
         	'is_active' => 1,
         ]);
-        $user3->save();
+		$user3->save();
+		
+		$user4 = new User([
+        	'email' => 'user4@email.com',
+        	'password' => bcrypt('12345'),
+        	'nama'=> 'User Ujicoba',
+        	'alamat' => 'mulyosari2',
+        	'kota' => 'sub',
+        	'provinsi' => 'jatim',
+        	'negara' => 'id',
+        	'telepon' => '081222222',
+        	'poin' => 150,
+        	'wallet' => 54000,
+        	'is_active' => 1,
+        ]);
+        $user4->save();
     }
 }
