@@ -19,6 +19,9 @@ class CreateRoomTransactionsTable extends Migration
             $table->integer('lamaInap');
             $table->integer('totalBiaya');
             $table->integer('statusTransaksi');
+            //khusus klik-doctor
+            $table->text('alasan_kunjungan')->nullable();
+            
             $table->boolean('isActive');
 
             $table->timestamps();

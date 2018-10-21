@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class HospitalClinicTransaction extends Model
 {
     protected $table = "hospital_clinic_transactions";
-    protected $fillable = ["hari_praktek","jam_praktek","noAntrian","totalBiaya","statusTransaksi","isActive","doctorhospital_id","user_id","pasien_id","payment_id","promotion_id"];
+    protected $fillable = ["hari_praktek","jam_praktek","noAntrian","totalBiaya","alasan_kunjungan","statusTransaksi","isActive","doctorhospital_id","user_id","pasien_id","payment_id","promotion_id"];
 
     public function hospitalclinicmessagetransactions()
     {

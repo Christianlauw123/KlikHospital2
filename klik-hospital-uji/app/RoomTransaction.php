@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class RoomTransaction extends Model
 {
     protected $table = "room_transactions";
-    protected $fillable = ["lamaInap","totalBiaya","statusTransaksi","isActive","room_id","doctorHospital_id","pasien_id","user_id","payment_id","promotion_id"];
+    protected $fillable = ["lamaInap","totalBiaya","statusTransaksi","isActive","alasan_kunjungan","room_id","doctorHospital_id","pasien_id","user_id","payment_id","promotion_id"];
 
     public function doctorhospital()
     {

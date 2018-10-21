@@ -46,7 +46,13 @@ Route::get('/roomTransactionAdmin','RoomTransactionController@getAllTransRoom');
 
 //DataPasien
 Route::get('/detailPasien/{id}','PasienController@getDetailPasien');
+Route::get('/detailUser/{id}','UserController@getDetailUser');
 
 //Transaksi Klinik Hospital
 Route::resource('/hospitalclinicTransaction','HospitalClinicTransactionController');
+Route::get('/hospitalclinicTransactionAdmin','HospitalClinicTransactionController@getAllTransClinicHospital');
+//Transaksi Klinik Biasa
+Route::resource('/clinicTransaction','ClinicTransactionController');
 
+//Data Doctor dari DoctorHospital
+Route::get('/doctorHospitalDoc/{id}','DoctorHospitalController@getDoctorHospital');

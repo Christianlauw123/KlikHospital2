@@ -194,7 +194,32 @@
     </div>
 
   </footer>
+  
+{{-- Modal Loading --}}
+<div class="modal fade" id="loadingModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-success" role="document">
+    <!--Content-->
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header text-center">
+        <p class="heading lead">Loading</p>
 
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="white-text">&times;</span>
+        </button>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+        <div class="text-center">
+            <img src="{{asset('ujicoba/ajax-loader.gif')}}"/>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{-- End Modal Loading --}}
   <!-- Modal Section -->
   <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">

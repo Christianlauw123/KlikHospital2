@@ -22,6 +22,9 @@ class CreateHospitalClinicTransactionsTable extends Migration
             $table->integer('noAntrian')->nullable();
 
             $table->integer('totalBiaya')->nullable();
+            //khusus klik-doctor
+            $table->text('alasan_kunjungan')->nullable();
+            
             $table->integer('statusTransaksi');
             $table->boolean('isActive');
             $table->timestamps();

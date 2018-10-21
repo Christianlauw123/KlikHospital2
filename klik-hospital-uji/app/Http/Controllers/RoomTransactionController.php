@@ -15,6 +15,7 @@ class RoomTransactionController extends Controller
      */
     public function index()
     {
+        //Untuk user biasa , hospital->null , clinic->null, pharmacy->null
         $getTrans = RoomTransaction::where('user_id',Auth::user()->id)->get();
         return response()->json([
             'myTrax'=>$getTrans,
@@ -40,28 +41,49 @@ class RoomTransactionController extends Controller
      */
     public function store(Request $request)
     {
-        //Insert Pasien Baru
-        $pasien = new Pasien([
-            'nama'=>$request->get('namaPas'),
-            'no_telepon'=>$request->get('noTelepon'),
-            'tgl_lahir'=>$request->get('bdate'),
-            'alamat'=>$request->get('alamat'),
-            'alasan_kunjungan'=>$request->get('alasan'),
-            'isActive'=>1,
-        ]);
-        $pasien->save();
+        //Daftarkan diri sendiri
+        if($request->get('jenis')==0)
+        {
+            //Insert Transaksi
+            $newRoom = new RoomTransaction([
+                'lamaInap'=>$request->get('lamaInap'),
+                'totalBiaya'=>$request->get('biayaTotal'),
+                'alasan_kunjungan'=>$request->get('alasan'),
+                'statusTransaksi'=>0,
+                'isActive'=>1,
+                'room_id'=>$request->get('idRoom'),
+                'user_id'=>Auth::user()->id,
+            ]);
+            $newRoom->save();
+        }
+        else
+        {
+            //Insert Pasien Baru
+            $pasien = new Pasien([
+                'nama'=>$request->get('namaPas'),
+                'no_telepon'=>$request->get('noTelepon'),
+                'tgl_lahir'=>$request->get('bdate'),
+                'alamat'=>$request->get('alamat'),
+                'isActive'=>1,
+            ]);
+            $pasien->save();
+            // return response()->json([
+            //     'data'=>$request->get('namaPas'),
+            // ]);
 
-        //Insert Transaksi
-        $newRoom = new RoomTransaction([
-            'lamaInap'=>$request->get('lamaInap'),
-            'totalBiaya'=>$request->get('biayaTotal'),
-            'statusTransaksi'=>0,
-            'isActive'=>1,
-            'room_id'=>$request->get('idRoom'),
-            'pasien_id'=>$pasien->id,
-            'user_id'=>Auth::user()->id,
-        ]);
-        $newRoom->save();
+            //Insert Transaksi
+            $newRoom = new RoomTransaction([
+                'lamaInap'=>$request->get('lamaInap'),
+                'totalBiaya'=>$request->get('biayaTotal'),
+                'statusTransaksi'=>0,
+                'alasan_kunjungan'=>$request->get('alasan'),
+                'isActive'=>1,
+                'room_id'=>$request->get('idRoom'),
+                'pasien_id'=>$pasien->id,
+                'user_id'=>Auth::user()->id,
+            ]);
+            $newRoom->save();
+        }
         return response()->json([
             'success' =>1,
         ]);

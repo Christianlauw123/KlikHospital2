@@ -32,8 +32,11 @@
 		  ============================-->
 		 <div class="w-100"></div>
 		 <!-- pesan -->
-     
-		 <button data-toggle="modal" data-target="#modalPesanRoom" class="btn btn-primary">Pesan</button>
+    @guest
+
+    @else
+      <button data-toggle="modal" data-target="#modalPesanRoom" class="btn btn-primary">Pesan</button>
+    @endguest
 	</div>
 </section>
 
@@ -49,24 +52,36 @@
       </div>
       <form id="formPesanRoom">
       	<div class="modal-body">
-      		<div class="form-row">
-      			<div class="form-group col-md-6">
-      				<label>Nama Pasien</label>
-      				<input type="text" class="form-control" name="namaPasien" placeholder="Nama Pasien">
-      			</div>
-      			<div class="form-group col-md-6">
-      				<label>No Telepon</label>
-      				<input type="text" class="form-control" name="noTelepon" placeholder="Nomor Telepon">
-      			</div>
-      		</div>
-          <div class="form-group">
-            <label>Tanggal Lahir</label>
-            <input class="form-control" type="date" name="bdate">
+          <div class="form-row">
+            <div class="custom-control custom-radio custom-control-inline">
+              <input type="radio" checked value="0" class="custom-control-input pilihanPesan" id="defaultInline1" name="inlineDefaultRadiosExample">
+              <label class="custom-control-label" for="defaultInline1">Diri Sendiri</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+              <input type="radio" value="1" class="custom-control-input pilihanPesan" id="defaultInline2" name="inlineDefaultRadiosExample">
+              <label class="custom-control-label" for="defaultInline2">Pasien Baru</label>
+            </div>
           </div>
-      		<div class="form-group">
-      			<label>Alamat</label>
-      			<textarea class="form-control" name="alamatPasien" placeholder="Alamat"></textarea>
-      		</div>
+          <div id="dataPasien">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label>Nama Pasien</label>
+                <input type="text" class="form-control" name="namaPasien" placeholder="Nama Pasien">
+              </div>
+              <div class="form-group col-md-6">
+                <label>No Telepon</label>
+                <input type="text" class="form-control" name="noTelepon" placeholder="Nomor Telepon">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Tanggal Lahir</label>
+              <input class="form-control" type="date" name="bdate">
+            </div>
+            <div class="form-group">
+              <label>Alamat</label>
+              <textarea class="form-control" name="alamatPasien" placeholder="Alamat"></textarea>
+            </div>
+          </div>
       		<div class="form-group">
       			<label>Alasan Kunjungan</label>
       			<textarea class="form-control" name="alasanKunjungan" placeholder="Alasan Kunjungan"></textarea>
@@ -138,6 +153,18 @@
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       }
     });
+    $.ajaxSetup({async:false});
+    $("#dataPasien").hide();
+    $("#formPesanRoom .pilihanPesan").change(function()
+    {
+      if($(this).val()==0)
+        $("#dataPasien").hide();
+      else
+      {
+        $("#dataPasien").show();
+        alert("PAs Baru");
+      }
+    })
     $("#lamaInap").change(function()
     {
       $("#biayaTotal").val({{$roomData->harga}}*$(this).val());
@@ -152,8 +179,35 @@
     {
       e.preventDefault();
       var data = $("#formPesanRoom").serializeArray();
-      //console.log(data);
-      var dataSubmit = {'namaPas': data[0].value, 'noTelepon': data[1].value, 'alamat':data[3].value, 'alasan':data[4].value, 'lamaInap':data[5].value,'biayaTotal':data[6].value,'bdate':data[2].value,'idRoom':data[7].value};
+      console.log("data");
+      console.log(data);
+      var dataSubmit;
+      
+      //DiriSendiri
+      if(data[0].value==0)
+      {
+        dataSubmit = {
+          'jenis':data[0].value,
+          'alasan':data[5].value,
+          'lamaInap':data[6].value,
+          'biayaTotal':data[7].value,
+          'idRoom':data[8].value
+        };
+      }
+      else
+      {
+        dataSubmit = {
+          'jenis':data[0].value,
+          'namaPas': data[1].value, 
+          'noTelepon': data[2].value,
+          'bdate':data[3].value,
+          'alamat':data[4].value,
+          'alasan':data[5].value,
+          'lamaInap':data[6].value,
+          'biayaTotal':data[7].value,
+          'idRoom':data[8].value
+        };
+      }
       console.log(dataSubmit);
       $.ajax({
           url : "{{url('roomTransaction')}}",

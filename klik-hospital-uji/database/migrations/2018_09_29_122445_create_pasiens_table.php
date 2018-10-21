@@ -22,9 +22,6 @@ class CreatePasiensTable extends Migration
             //khusus klik-room
             $table->text('alamat')->nullable();
 
-            //khusus klik-doctor
-            $table->text('alasan_kunjungan')->nullable();
-
             $table->boolean('isActive');
 
             $table->integer('user_id')->nullable()->unsigned();

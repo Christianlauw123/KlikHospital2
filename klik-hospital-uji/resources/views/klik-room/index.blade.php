@@ -12,16 +12,16 @@
 		    Search Menu
 		  ============================-->
 		@if(isset(Auth::user()->hospital))
-			<div class="container">
-				<p>
+			{{-- <div class="container"> --}}
+				{{-- <p>
 					<button class="btn btn-primary" type="button" data-toggle="collapse" id="btnHistoryRoom">Transaksi Room</button>
 					<button class="btn btn-primary" type="button" data-toggle="collapse" id="btnHistoryDoctor" >Transaksi Doctor</button>
-				</p>
+				</p> --}}
 				<div class="container">
 					<div id="RoomTrans">
 					</div>
 				</div>
-			</div>
+			{{-- </div> --}}
 			
 			
 			Transaksi Klinik RS
@@ -112,84 +112,95 @@
 	//Lokasi Change
 	$( document ).ready(function() {
 		//Liat Transaksi
-		$.ajaxSetup({async:false});
+		//$.ajaxSetup({async:false});
 		function getRoomTransAdmin()
 		{
-			$.get('{{url("roomTransactionAdmin")}}/',function(data,status)
-			{
-				console.log(data.roomTrans);
-                var new1 = "<h1>Transaksi Room</h1>";
-				new1 += "<table class=\"table\">";
-				new1 += "<thead>";
-					new1 += "<tr>";
-						new1 += "<th scope=\"col\">No_Transaksi</th>";
-						new1 += "<th scope=\"col\">Nama Pasien</th>";
-						new1 += "<th scope=\"col\">No Telepon</th>";
-						new1 += "<th scope=\"col\">Ruangan</th>";
-						new1 += "<th scope=\"col\">Dokter Jaga</th>";
-						new1 += "<th scope=\"col\">Lama Inap</th>";
-						new1 += "<th scope=\"col\">Total Biaya</th>";
-						new1 += "<th scope=\"col\" colspan=\"2\">Status</th>";
-					new1 += "</tr>";
-				new1 += "</thead><tbody>";
-                $("#RoomTrans").append(new1);
-                $.each(data.roomTrans,function(i,item)
-                {
-                    new1 = "<tr>";
-					new1 += "<th scope=\"row\">"+(i+1)+"</th>";
-					
-					$.get('{{url("detailPasien/")}}/'+item['pasien_id'],function(data)
-					{
-						//console.log(data.dataPas);
-						new1 += "<td class=\"col\">"+data.dataPas.nama+"</td>";
-						new1 += "<td class=\"col\">"+data.dataPas.no_telepon+"</td>";
-					});
-
-					$.get('{{url("detailRuang/")}}/'+item['room_id'],function(data)
-					{
-						console.log(data);
-						new1 += "<td class=\"col\">"+data.dataRuang.nama+"</td>";
-					});
-					if(item['statusTransaksi']==0)
-						new1 += "<td class=\"col\">Belum Tersedia</td>";
-					else
-					{
-
-					}
-					new1 += "<td class=\"col\">"+item['lamaInap'] +"Hari</td>";
-					new1 += "<td class=\"col\">Rp "+item['totalBiaya']+",00</td>";
-
-					if(item['statusTransaksi']==0)
-					{
-						new1 += "<td class=\"col\"><button class=\"btn btn-primary\">Setujui</button></td>";
-						new1 += "<td class=\"col\"><button class=\"btn btn-secondary\">Tolak</button></td>";
-					}
-					else
-					{
-
-					}
-					
-					new1 += "</tr>";
+			$("#loadingModal").modal('show');
+			$.ajax({
+                url : "{{url('roomTransactionAdmin')}}",
+                type : "GET",
+                success: function(result){
+					var new1 = "<h1>Transaksi Room</h1>";
+					new1 += "<table class=\"table\">";
+					new1 += "<thead>";
+						new1 += "<tr>";
+							new1 += "<th scope=\"col\">No_Transaksi</th>";
+							new1 += "<th scope=\"col\">Nama Pasien</th>";
+							new1 += "<th scope=\"col\">No Telepon</th>";
+							new1 += "<th scope=\"col\">Ruangan</th>";
+							new1 += "<th scope=\"col\">Dokter Jaga</th>";
+							new1 += "<th scope=\"col\">Lama Inap</th>";
+							new1 += "<th scope=\"col\">Total Biaya</th>";
+							new1 += "<th scope=\"col\" colspan=\"2\">Status</th>";
+						new1 += "</tr>";
+					new1 += "</thead><tbody>";
 					$("#RoomTrans").append(new1);
-                });
-				new1 = "</tbody></table>";
-				new1 += "</thead><tbody>";
-				$("#RoomTrans").append(new1);
-                
-            });
+					$.each(result.roomTrans,function(i,item)
+					{
+						new1 = "<tr>";
+						new1 += "<th scope=\"row\">"+(i+1)+"</th>";
+						
+						$.ajaxSetup({async:false});
+						$.ajax({
+							url : '{{url("detailPasien/")}}/'+item['pasien_id'],
+							type : "GET",
+							success:function(result){
+								new1 += "<td class=\"col\">"+result.dataPas.nama+"</td>";
+								new1 += "<td class=\"col\">"+result.dataPas.no_telepon+"</td>";
+							},
+						});
+
+						$.ajax({
+							url : '{{url("detailRuang/")}}/'+item['room_id'],
+							type : "GET",
+							success:function(result){
+								new1 += "<td class=\"col\">"+result.dataRuang.nama+"</td>";
+							},
+						});
+						$.ajaxSetup({async:true});
+
+
+						if(item['statusTransaksi']==0)
+							new1 += "<td class=\"col\">Belum Tersedia</td>";
+						else
+						{
+
+						}
+						new1 += "<td class=\"col\">"+item['lamaInap'] +"Hari</td>";
+						new1 += "<td class=\"col\">Rp "+item['totalBiaya']+",00</td>";
+
+						if(item['statusTransaksi']==0)
+						{
+							new1 += "<td class=\"col\"><button class=\"btn btn-primary\">Setujui</button></td>";
+							new1 += "<td class=\"col\"><button class=\"btn btn-secondary\">Tolak</button></td>";
+						}
+						else
+						{
+
+						}
+						
+						new1 += "</tr>";
+						$("#RoomTrans").append(new1);
+					});
+					new1 = "</tbody></table>";
+					new1 += "</thead><tbody>";
+					$("#RoomTrans").append(new1);
+					$("#loadingModal").modal('hide');
+				},
+			});
 		}
 		getRoomTransAdmin();
-		$("#btnHistoryRoom").click(function(){
-            $("#RoomTrans").html("");
-			getRoomTransAdmin();
-        });
+		// $("#btnHistoryRoom").click(function(){
+        //     $("#RoomTrans").html("");
+		// 	getRoomTransAdmin();
+        // });
 
-        $("#btnHistoryDoctor").click(function(){
-            //TODO
-            $("#accordion").html("");
-            var new1 = "<h1>Transaksi Doctor</h1>";
-            $("#accordion").append(new1);
-        });
+        // $("#btnHistoryDoctor").click(function(){
+        //     //TODO
+        //     $("#accordion").html("");
+        //     var new1 = "<h1>Transaksi Doctor</h1>";
+        //     $("#accordion").append(new1);
+        // });
 
 		//Jika Lokasi Berubah
 		$("#lokasiSelectRoom").change(function()

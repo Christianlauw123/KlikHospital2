@@ -2,6 +2,7 @@
 
 @section('content')
 <section class="hero">
+	
 	<h1>Detail Dokter</h1>
 	<p>Masih Dummy</p>
 	<a href="#about-us" class="btn btn-default scrollto">Profil</a>
@@ -91,6 +92,17 @@
 					Jadwal Pilihan : <span id="jadwalPilihan"></span>
 				</div>
 				<div class="form-row">
+					<div class="custom-control custom-radio custom-control-inline">
+						<input type="radio" checked value="0" class="custom-control-input pilihanPesan" id="defaultInline1" name="inlineDefaultRadiosExample">
+						<label class="custom-control-label" for="defaultInline1">Diri Sendiri</label>
+					</div>
+					<div class="custom-control custom-radio custom-control-inline">
+						<input type="radio" value="1" class="custom-control-input pilihanPesan" id="defaultInline2" name="inlineDefaultRadiosExample">
+						<label class="custom-control-label" for="defaultInline2">Pasien Baru</label>
+					</div>
+				</div>
+			<div id="dataPasien">
+				<div class="form-row">
 					<div class="form-group col-md-6">
 						<label>Nama Pasien</label>
 						<input type="text" class="form-control" name="namaPasien" placeholder="Nama Pasien">
@@ -104,10 +116,11 @@
 			  <label>Tanggal Lahir</label>
 			  <input class="form-control" type="date" name="bdate">
 			</div>
-				<div class="form-group">
-					<label>Alamat</label>
-					<textarea class="form-control" name="alamatPasien" placeholder="Alamat"></textarea>
-				</div>
+			<div class="form-group">
+				<label>Alamat</label>
+				<textarea class="form-control" name="alamatPasien" placeholder="Alamat"></textarea>
+			</div>
+			</div>
 				<div class="form-group">
 					<label>Alasan Kunjungan</label>
 					<textarea class="form-control" name="alasanKunjungan" placeholder="Alasan Kunjungan"></textarea>
@@ -170,8 +183,11 @@
 			}
 		});
 
+		//$.ajaxSetup({async:false});
+		$("#dataPasien").hide();
+
 		$(".transClinicHospital").click(function(e){
-			console.log("Arr Hospital");
+			//console.log("Arr Hospital");
 			arrData = [];
 			arrData.push("ClinicHos");
 			$.each($(this).find(":input"), function (index, value) {
@@ -184,7 +200,7 @@
 		});
 
 		$(".transClinic").click(function(e){
-			console.log("Arr Clinic");
+			//console.log("Arr Clinic");
 			arrData = [];
 			arrData.push("Clinic");
 			$.each($(this).find(":input"), function (index, value) {
@@ -204,17 +220,34 @@
 		$("#btnSetujuDataBenar").click(function(e)
 		{
 			e.preventDefault();
+			$("#loadingModal").modal('show');
 			var data = $("#formPesanClinic").serializeArray();
 			//console.log(data);
-			var dataSubmit = {
-				'namaPas': data[0].value,
-				'noTelepon': data[1].value,
-				'alamat':data[3].value,
-				'alasan':data[4].value,
-				'bdate':data[2].value,
-				'dataRoom':arrData,
-			};
+			var dataSubmit;
+
+			//Data Pribadi
+			if(data[0].value==0)
+			{
+				dataSubmit = {
+					'jenis':data[0].value,
+					'alasan':data[5].value,
+					'dataRoom':arrData,
+				};
+			}
+			else
+			{
+				dataSubmit = {
+					'jenis':data[0].value,
+					'namaPas': data[1].value,
+					'noTelepon': data[2].value,
+					'bdate':data[3].value,
+					'alamat':data[4].value,
+					'alasan':data[5].value,
+					'dataRoom':arrData,
+				};
+			}
 			console.log(dataSubmit);
+			
 			//Trans Klinik Hospital
 			if(arrData[0]=="ClinicHos"){
 				$.ajax({
@@ -223,34 +256,50 @@
 					data : dataSubmit,
 					success: function(result){
 						console.log(result);
+						$("#loadingModal").modal('hide');
+						$('#modalPesanClinic').modal('hide');
+						$("#afterKonfirmasiClinic").modal('show');
 					},
 					error: function(data){
 						console.log(data);
+						$("#loadingModal").modal('hide');
+						$("#afterKonfirmasiClinic").modal('show');
 					}
 				});
 			}
 			else
 			{
+				//Trans Klinik Biasa
 				$.ajax({
-					// url : "{{url('roomTransaction')}}",
-					// type : "POST",
-					// data : dataSubmit,
-					// success: function(result){
-					// 	console.log(result);
-					// },
-					// error: function(data){
-					// 	console.log(data);
-					// }
+					url : "{{url('clinicTransaction')}}",
+					type : "POST",
+					data : dataSubmit,
+					success: function(result){
+						console.log(result);
+						$("#loadingModal").modal('hide');
+						$('#modalPesanClinic').modal('hide');
+						$("#afterKonfirmasiClinic").modal('show');
+					},
+					error: function(data){
+						console.log(data);
+						$("#loadingModal").modal('hide');
+						$("#afterKonfirmasiClinic").modal('show');
+					}
 				});
 			}
-			$('#modalPesanClinic').modal('hide');
-			$("#afterKonfirmasiClinic").modal('show');
+			$('#modalPesanClinic').modal('hide');			
 		});
 		
 		$("#btnTutupPesanClinic").click(function(e)
 		{
 			e.preventDefault();
 			window.location.href = "{{url('/')}}";
+		});
+		$("#formPesanClinic .pilihanPesan").change(function(){
+			if($(this).val()==0)
+				$("#dataPasien").hide();
+			else
+				$("#dataPasien").show();
 		});
 	});
 </script>

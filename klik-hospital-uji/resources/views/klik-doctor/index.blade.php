@@ -8,6 +8,15 @@
 	<div class="hero-container">
 		<img src="{{asset('template_source/img/image-Klik/icon.png')}}" alt="Hero Imgs">
 
+		@if(Auth::user()->hospital)
+		<div class="container">
+			<div id="transClinicHospital">
+
+			</div>
+		</div>
+		@elseif(Auth::user()->clinic)
+
+		@else
 		 <!--==========================
 		    Search Menu
 		  ============================-->
@@ -102,7 +111,7 @@
 			@endforeach
 		</div>
 	 	</div>
-	 
+	 @endif
 	 <!--==========================
 	    End List Doctor
 	  ============================-->  
@@ -277,7 +286,97 @@
 				}
 			});
 		});
-	
+		function getHospitalClinicTransAdmin()
+		{
+			$("#loadingModal").modal('show');
+			$.ajax({
+                url : "{{url('hospitalclinicTransactionAdmin')}}",
+                type : "GET",
+                success: function(result){
+					var new1 = "<h1>Transaksi Klinik Hospital</h1>";
+					new1 += "<table class=\"table\">";
+					new1 += "<thead>";
+						new1 += "<tr>";
+							new1 += "<th scope=\"col\">No_Transaksi</th>";
+							new1 += "<th scope=\"col\">Nama Pasien</th>";
+							new1 += "<th scope=\"col\">No Telepon</th>";
+							new1 += "<th scope=\"col\">Hari Kunjungan</th>";
+							new1 += "<th scope=\"col\">Jam Kunjungan</th>";
+							new1 += "<th scope=\"col\">Dokter Praktek</th>";
+							new1 += "<th scope=\"col\">Alasan Kunjungan</th>";
+							new1 += "<th scope=\"col\" colspan=\"2\">Aksi</th>";
+						new1 += "</tr>";
+					new1 += "</thead><tbody>";
+					$("#transClinicHospital").append(new1);
+					$.each(result.hospClinicTrans,function(i,item)
+					{
+						new1 = "<tr>";
+						new1 += "<th scope=\"row\">"+(i+1)+"</th>";
+						
+						//Nama dan No Telepon
+						$.ajaxSetup({async:false});
+						if(item.pasien_id==null)
+						{
+							$.ajax({
+								url : '{{url("detailUser/")}}/'+item.user_id,
+								type : "GET",
+								success:function(result){
+									//console.log(result);
+									new1 += "<td class=\"col\">"+result.dataUs['nama']+"</td>";
+									new1 += "<td class=\"col\">"+result.dataUs['telepon']+"</td>";
+								},
+							});
+						}
+						else
+						{
+							$.ajax({
+								url : '{{url("detailPasien/")}}/'+item.pasien_id,
+								type : "GET",
+								success:function(result){
+									//console.log(result);
+									new1 += "<td class=\"col\">"+result.dataPas['nama']+"</td>";
+									new1 += "<td class=\"col\">"+result.dataPas['telepon']+"</td>";
+								},
+							});
+						}
+						//Hari Kunj + Jam Kunj
+						new1 += "<td class=\"col\">"+item.hari_praktek+"</td>";
+						new1 += "<td class=\"col\">"+item.jam_praktek+"</td>";
+
+						$.ajax({
+							url : '{{url("doctorHospitalDoc/")}}/'+item.doctorhospital_id,
+							type : "GET",
+							success:function(result){
+								console.log(result);
+								new1 += "<td class=\"col\">"+result.datadocHosp['nama']+"</td>";
+							},
+						});
+						$.ajaxSetup({async:true});
+
+						new1 += "<td class=\"col\">"+item.alasan_kunjungan+"</td>";
+
+						if(item['statusTransaksi']==0)
+						{
+							new1 += "<td class=\"col\"><button class=\"btn btn-primary\">Setujui</button></td>";
+							new1 += "<td class=\"col\"><button class=\"btn btn-secondary\">Tolak</button></td>";
+						}
+						else
+						{
+
+						}
+						
+						new1 += "</tr>";
+						$("#transClinicHospital").append(new1);
+					});
+
+					new1 = "</tbody></table>";
+					new1 += "</thead><tbody>";
+					$("#transClinicHospital").append(new1);
+					$("#loadingModal").modal('hide');
+				},
+			});
+		}
+		getHospitalClinicTransAdmin();
 	});
 </script>
 @endsection
